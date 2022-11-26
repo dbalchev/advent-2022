@@ -37,6 +37,9 @@ enable_testing()
 add_subdirectory(common)
 
 include_directories($<TARGET_PROPERTY:gflags,INTERFACE_INCLUDE_DIRECTORIES>)
+include_directories($<TARGET_PROPERTY:advent-common-lib,INTERFACE_INCLUDE_DIRECTORIES>)
+
+link_libraries(advent-common-lib)
 
 add_executable(
     advent

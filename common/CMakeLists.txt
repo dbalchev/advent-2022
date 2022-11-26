@@ -9,10 +9,10 @@ add_library(
     registry.cxx
 )
 
-# target_include_directories(
-#     advent-common-lib
-#     PUBLIC ${PROJECT_SOURCE_DIR}/include
-# )
+target_include_directories(
+    advent-common-lib
+    PUBLIC ${PROJECT_SOURCE_DIR}/include
+)
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
