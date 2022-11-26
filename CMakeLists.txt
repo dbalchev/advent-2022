@@ -34,12 +34,12 @@ FetchContent_MakeAvailable(
 )
 enable_testing()
 
-add_subdirectory(common)
+add_subdirectory(day_0)
 
 include_directories($<TARGET_PROPERTY:gflags,INTERFACE_INCLUDE_DIRECTORIES>)
-include_directories($<TARGET_PROPERTY:advent-common-lib,INTERFACE_INCLUDE_DIRECTORIES>)
+include_directories($<TARGET_PROPERTY:day_0,INTERFACE_INCLUDE_DIRECTORIES>)
 
-link_libraries(advent-common-lib)
+link_libraries(day_0)
 
 add_executable(
     advent
