@@ -30,3 +30,11 @@ public:
         registry.register_solution<SolutionType>(day);
     }
 };
+
+extern Registry SOLUTION_REGISTRY;
+
+#define REGISTER_SOLUTION_AT(REGISTRY, DAY, SOLUTION_CLASS) \
+    static RegisterSolution<SOLUTION_CLASS> _rs##DAY(REGISTRY, DAY);
+
+#define REGISTER_SOLUTION(DAY, SOLUTION_CLASS) \
+    REGISTER_SOLUTION_AT(SOLUTION_REGISTRY, DAY, SOLUTION_CLASS)

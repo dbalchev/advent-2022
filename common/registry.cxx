@@ -9,3 +9,5 @@ int Registry::run(int day, const char* input_filename) {
     }
     return solution_iterator->second->run(input_filename);
 }
+
+Registry SOLUTION_REGISTRY;

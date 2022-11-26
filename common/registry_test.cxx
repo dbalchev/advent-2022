@@ -14,7 +14,7 @@ struct TestSolution1: Solution{
 
 const char* TestSolution1::saved_filename = "none";
 
-static RegisterSolution<TestSolution1> _rs1(TEST_REGISTRY, 1);
+REGISTER_SOLUTION_AT(TEST_REGISTRY, 1, TestSolution1);
 
 struct TestSolution2: Solution{
     static const char* saved_filename;
@@ -25,7 +25,7 @@ struct TestSolution2: Solution{
 };
 const char* TestSolution2::saved_filename = "none";
 
-static RegisterSolution<TestSolution2> _rs2(TEST_REGISTRY, 2);
+REGISTER_SOLUTION_AT(TEST_REGISTRY, 2, TestSolution2);
 
 TEST(RegistryTest, InitIsOk) {
     EXPECT_STREQ(TestSolution1::saved_filename, "none");
