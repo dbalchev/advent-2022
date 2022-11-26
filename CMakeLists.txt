@@ -34,13 +34,18 @@ FetchContent_MakeAvailable(
 )
 enable_testing()
 
-add_subdirectory(day_0)
-
 include_directories($<TARGET_PROPERTY:gflags,INTERFACE_INCLUDE_DIRECTORIES>)
-include_directories($<TARGET_PROPERTY:day_0,INTERFACE_INCLUDE_DIRECTORIES>)
 
-link_libraries(day_0)
+set(
+    DAYS_TO_ADD
+    day_0
+)
 
+foreach(DAY IN LISTS DAYS_TO_ADD)
+    add_subdirectory(${DAY})
+    include_directories($<TARGET_PROPERTY:${DAY},INTERFACE_INCLUDE_DIRECTORIES>)
+    link_libraries(${DAY})
+endforeach()
 add_executable(
     advent
     main.cxx
