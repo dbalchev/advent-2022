@@ -1,7 +1,5 @@
-
-set (PACKAGE_NAME "day_0")
+get_filename_component(PACKAGE_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 set (TEST_EXECUTABLE "${PACKAGE_NAME}_test")
-
 
 project(
     ${PACKAGE_NAME}

@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include <day_0.h>
+#include <day_00.h>
 
-int day_0_solution(const char* input_filename) {
+int day_00_solution(const char* input_filename) {
     std::cout << "Implement me" << std::endl;
     return 2;
 }

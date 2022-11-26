@@ -36,9 +36,8 @@ enable_testing()
 
 include_directories($<TARGET_PROPERTY:gflags,INTERFACE_INCLUDE_DIRECTORIES>)
 
-set(
-    DAYS_TO_ADD
-    day_0
+file(
+    GLOB DAYS_TO_ADD LIST_DIRECTORIES true RELATIVE ${PROJECT_SOURCE_DIR} day_*
 )
 
 foreach(DAY IN LISTS DAYS_TO_ADD)

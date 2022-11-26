@@ -3,7 +3,7 @@
 
 #include <gflags/gflags.h>
 
-#include <day_0.h>
+#include <day_00.h>
 
 DEFINE_int32(day, -1, "Which day to run");
 DEFINE_string(input, "", "Input file path");
