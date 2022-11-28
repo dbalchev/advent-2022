@@ -50,3 +50,10 @@ add_executable(
     main.cxx
 )
 target_link_libraries(advent gflags::gflags)
+
+
+add_executable(
+    setup_day
+    setup_day.cxx
+)
+target_link_libraries(setup_day gflags::gflags)
