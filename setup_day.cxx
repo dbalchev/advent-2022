@@ -57,6 +57,6 @@ int main(int argc, char** argv) {
     }
     std::filesystem::remove("main.cxx");
     std::filesystem::rename("main.cxx.0", "main.cxx");
-
+    std::filesystem::last_write_time("CMakeLists.txt", std::filesystem::file_time_type::clock::now());
     return 0;
 }
