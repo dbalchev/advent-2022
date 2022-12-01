@@ -4,6 +4,7 @@
 #include <gflags/gflags.h>
 
 #include <day_00.h>
+#include <day_01.h>
 // Add include above this line
 
 DEFINE_int32(day, -1, "Which day to run");
@@ -13,6 +14,7 @@ int main(int argc, char** argv) {
 
     std::unordered_map<int, int(*)(const char*)> solutions = {
         {0, day_00_solution},
+        {1, day_01_solution},
         // Add solution function above this line
     };
 
@@ -24,6 +26,12 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    return solution_iter->second(FLAGS_input.c_str());
+    try {
+        return solution_iter->second(FLAGS_input.c_str());
+    } catch (std::exception ex) {
+        std::cerr << "Exception " << ex.what() << std::endl;
+    }
+    
 }
+
 
