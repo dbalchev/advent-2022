@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
                 writer << "#include <" << day_name << ".h>" << std::endl;
             } else if (buffer.find("// Add solution function above this line") != std::string::npos) {
                 auto num_spaces = buffer.find_first_not_of(' ');
-                writer << std::string(num_spaces, ' ') << "{" << day << ", " << day_name << "_solution}," << std::endl;
+                writer << std::string(num_spaces, ' ') << "{" << day << ", " << day_name << "::solution}," << std::endl;
             }
             writer << buffer << std::endl;
         }

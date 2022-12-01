@@ -13,8 +13,8 @@ DEFINE_string(input, "", "Input file path");
 int main(int argc, char** argv) {
 
     std::unordered_map<int, int(*)(const char*)> solutions = {
-        {0, day_00_solution},
-        {1, day_01_solution},
+        {0, day_00::solution},
+        {1, day_01::solution},
         // Add solution function above this line
     };
 
@@ -33,5 +33,3 @@ int main(int argc, char** argv) {
     }
     
 }
-
-

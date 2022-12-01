@@ -1,3 +1,6 @@
 #pragma once
 
-int day_00_solution(const char* filename);
+namespace day_00{
+    int solution(const char* filename);
+}
+
