@@ -5,6 +5,7 @@
 
 #include <day_00.h>
 #include <day_01.h>
+#include <day_02.h>
 // Add include above this line
 
 DEFINE_int32(day, -1, "Which day to run");
@@ -15,6 +16,7 @@ int main(int argc, char** argv) {
     std::unordered_map<int, int(*)(const char*)> solutions = {
         {0, day_00::solution},
         {1, day_01::solution},
+        {2, day_02::solution},
         // Add solution function above this line
     };
 
