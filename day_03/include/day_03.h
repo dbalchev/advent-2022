@@ -4,7 +4,7 @@
 #include <vector> 
 #include <string>
 
-class day_03: public SolutionBase<day_03, std::vector<std::pair<std::string, std::string> > > {
+class day_03: public SolutionBase<day_03, std::vector<std::string> > {
 public:
     static ParsedData parse_input(const char* filename);
 
