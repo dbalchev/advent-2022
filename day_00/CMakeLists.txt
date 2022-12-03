@@ -13,11 +13,14 @@ add_library(
 
 target_include_directories(
     ${PACKAGE_NAME}
-    PUBLIC ${PROJECT_SOURCE_DIR}/include
+    PUBLIC 
+    ${PROJECT_SOURCE_DIR}/include     
+    ${PROJECT_SOURCE_DIR}/../common/include
 )
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/../common/include
 )
 
 add_executable(

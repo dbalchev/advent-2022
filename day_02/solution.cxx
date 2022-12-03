@@ -61,5 +61,3 @@ namespace day_02 {
     }
 
 }
-
-
