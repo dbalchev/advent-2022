@@ -16,5 +16,6 @@ public:
     static ResultData solve_part_2(const ParsedData& parsed_data);
     
     static bool is_contained(const std::pair<int, int> &lh, const std::pair<int, int> &rh);
+    static bool day_04::overlaps(const std::pair<std::pair<int, int>, std::pair<int, int> > &elf_pair);
 };
 

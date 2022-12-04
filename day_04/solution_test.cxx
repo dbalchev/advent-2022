@@ -33,7 +33,7 @@ TEST(day_04, SolvePart1) {
 }
 
 TEST(day_04, SolvePart2) {
-    EXPECT_EQ(31, day_04::solve_part_2(example_data));
+    EXPECT_EQ(4, day_04::solve_part_2(example_data));
 }
 
 TEST(day_04, IsContained) {

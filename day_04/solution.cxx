@@ -2,6 +2,7 @@
 
 #include <day_04.h>
 #include <regex>
+#include <algorithm>
 
 day_04::ParsedData day_04::parse_input(const char* filename) {
     auto fin = open_for_reading(filename);
@@ -41,8 +42,18 @@ bool day_04::is_contained(const std::pair<int, int> &lh, const std::pair<int, in
     if (lh.first == rh.first) {
         return true;
     }
-    // lh.first <= rh.second
+    // lh.first <= rh.first
     return lh.second >= rh.second;
+}
+
+bool day_04::overlaps(const std::pair<std::pair<int, int>, std::pair<int, int> > &elf_pair) {
+    auto& [lh, rh] = elf_pair;
+    if (lh.first > rh.first) {
+        auto swapped = std::make_pair(rh, lh);
+        return overlaps(swapped);
+    }
+    // lh.first <= rh.first
+    return lh.second >= rh.first;
 }
 
 day_04::ResultData day_04::solve_part_1(const ParsedData& parsed_data) {
@@ -55,6 +66,6 @@ day_04::ResultData day_04::solve_part_1(const ParsedData& parsed_data) {
     return fully_contained;
 }
 day_04::ResultData day_04::solve_part_2(const ParsedData& parsed_data) {
-    return 30;
+    return std::count_if(parsed_data.begin(), parsed_data.end(), overlaps);
 }
 
