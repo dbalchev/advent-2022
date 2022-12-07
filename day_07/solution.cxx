@@ -84,12 +84,12 @@ day_07::ParsedData day_07::parse_input(const char* filename) {
     return result;
 }
 
-static std::pair<int64_t, int64_t> find_size_and_solve_part_1_result(const DirEntry& dir_entry, int64_t part_1_result) {
+static std::pair<int64_t, int64_t> find_size_and_solve_part_1_result(const DirEntry& dir_entry) {
     int64_t current_size = 0;
-
+    int64_t part_1_result = 0;
     for (auto& [_, dir]: dir_entry.directories) {
-        auto [dir_size, new_result] = find_size_and_solve_part_1_result(dir, part_1_result);
-        part_1_result = new_result;
+        auto [dir_size, new_result] = find_size_and_solve_part_1_result(dir);
+        part_1_result += new_result;
         current_size += dir_size;
     }
     for (auto& [_, file_size]: dir_entry.files) {
@@ -124,7 +124,7 @@ static std::pair<int64_t, int64_t> find_size_and_solve_part_2_result(
 }
 
 day_07::ResultData day_07::solve_part_1(const ParsedData& parsed_data) {
-    auto [_, result] = find_size_and_solve_part_1_result(parsed_data, 0);
+    auto [_, result] = find_size_and_solve_part_1_result(parsed_data);
     return result;
 }
 day_07::ResultData day_07::solve_part_2(const ParsedData& parsed_data) {
