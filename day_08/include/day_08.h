@@ -1,6 +1,8 @@
 #pragma once
 
 #include <SolutionBase.h>
+#include <vector>
+#include <string>
 
 class day_08: public SolutionBase<day_08, std::vector<std::string> >{
 public:

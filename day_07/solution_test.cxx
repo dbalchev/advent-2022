@@ -48,7 +48,7 @@ static day_07::ParsedData example_parsed_data = {
 
 TEST(day_07, ParseInput) {
     auto parsed_data = day_07::parse_input("../../day_07/example.txt");
-    EXPECT_EQ(example_parsed_data, parsed_data) << parsed_data;
+    EXPECT_EQ(example_parsed_data, parsed_data);
 }
 
 TEST(day_07, SolvePart1) {

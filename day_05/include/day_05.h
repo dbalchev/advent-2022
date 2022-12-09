@@ -2,6 +2,9 @@
 
 #include <SolutionBase.h>
 #include <string>
+#include <vector>
+#include <tuple>
+
 namespace day05_ns {
     typedef char Crate;
     typedef std::vector<std::vector<Crate>> ContainerState;

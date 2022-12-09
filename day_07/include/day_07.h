@@ -4,6 +4,7 @@
 #include <utility>
 #include <memory>
 #include <unordered_map>
+#include <vector>
 
 namespace day_07_ns {
     

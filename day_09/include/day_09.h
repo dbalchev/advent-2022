@@ -1,6 +1,8 @@
 #pragma once
 
 #include <SolutionBase.h>
+#include <vector>
+#include <utility>
 
 namespace day_09_ns {
     typedef std::pair<int, int> Position;

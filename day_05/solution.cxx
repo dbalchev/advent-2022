@@ -3,6 +3,7 @@
 #include <day_05.h>
 #include <algorithm>
 #include <iterator>
+#include <stdio.h>
 
 using namespace day05_ns;
 
@@ -44,7 +45,7 @@ day_05::ParsedData day_05::parse_input(const char* filename) {
 
         int count, from, to;
 
-        sscanf_s(line.c_str(), "move %d from %d to %d", &count, &from, &to);
+        sscanf(line.c_str(), "move %d from %d to %d", &count, &from, &to);
         moves.push_back({count, from, to});
     }
 
