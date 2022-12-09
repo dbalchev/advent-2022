@@ -16,11 +16,13 @@ target_include_directories(
     PUBLIC 
     ${PROJECT_SOURCE_DIR}/include     
     ${PROJECT_SOURCE_DIR}/../common/include
+    ${rangev3_SOURCE_DIR}/include
 )
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
     ${PROJECT_SOURCE_DIR}/../common/include
+    ${rangev3_SOURCE_DIR}/include
 )
 
 add_executable(

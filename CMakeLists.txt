@@ -32,6 +32,15 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(
     GoogleTest
 )
+
+FetchContent_Declare(
+    RangeV3
+    GIT_REPOSITORY https://github.com/ericniebler/range-v3.git
+    GIT_TAG 0.12.0
+)
+FetchContent_MakeAvailable(
+    RangeV3
+)
 enable_testing()
 
 include_directories($<TARGET_PROPERTY:gflags,INTERFACE_INCLUDE_DIRECTORIES>)
