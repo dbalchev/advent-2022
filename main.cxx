@@ -13,6 +13,7 @@
 #include <day_07.h>
 #include <day_08.h>
 #include <day_09.h>
+#include <day_10.h>
 // Add include above this line
 
 DEFINE_int32(day, -1, "Which day to run");
@@ -31,6 +32,7 @@ int main(int argc, char** argv) {
         {7, day_07::solution},
         {8, day_08::solution},
         {9, day_09::solution},
+        {10, day_10::solution},
         // Add solution function above this line
     };
 
@@ -49,6 +51,7 @@ int main(int argc, char** argv) {
     }
     
 }
+
 
 
 
