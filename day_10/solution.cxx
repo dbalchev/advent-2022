@@ -26,7 +26,8 @@ day_10::ParsedData day_10::parse_input(const char* filename) {
     }
     return result;
 }
-day_10::ResultData day_10::solve_part_1(const ParsedData& parsed_data) {
+
+static std::vector<int> compute_cycle_history(const day_10::ParsedData &parsed_data) {
     auto cycle_data = parsed_data
          | ranges::views::transform([](const auto& instruction) -> std::pair<int, int> {
             auto [opcode, arg] = instruction;
@@ -57,10 +58,25 @@ day_10::ResultData day_10::solve_part_1(const ParsedData& parsed_data) {
         }
         cycle_history.push_back(x);
     }
-    return 20 * cycle_history[19] + 60 * cycle_history[59] + 100 * cycle_history[99] +
-        140 * cycle_history[139] + 180 * cycle_history[179] + 220 * cycle_history[219];
-}
-day_10::ResultData day_10::solve_part_2(const ParsedData& parsed_data) {
-    return 30;
+    return cycle_history;
 }
 
+day_10::ResultData day_10::solve_part_1(const ParsedData& parsed_data) {
+    auto cycle_history = compute_cycle_history(parsed_data);
+    auto result = 20 * cycle_history[19] + 60 * cycle_history[59] + 100 * cycle_history[99] +
+        140 * cycle_history[139] + 180 * cycle_history[179] + 220 * cycle_history[219];
+    return std::to_string(result);
+}
+day_10::ResultData day_10::solve_part_2(const ParsedData& parsed_data) {
+    auto cycle_history = compute_cycle_history(parsed_data);
+    auto render = ranges::views::ints(0, 240)
+        | ranges::views::transform([&](int cycle) -> char {
+            auto cursor_pos = cycle % 40;
+            auto sprite_center = cycle_history[cycle];
+            return (sprite_center - 1 <= cursor_pos && cursor_pos <= sprite_center + 1) ? '#' : '.';
+        })
+        | ranges::views::chunk(40)
+        | ranges::views::join('\n')
+        | ranges::to<std::string>();
+    return "\n" + render + "\n";
+}

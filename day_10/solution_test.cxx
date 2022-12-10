@@ -157,10 +157,18 @@ TEST(day_10, ParseInput) {
 }
 
 TEST(day_10, SolvePart1) {
-    EXPECT_EQ(13140, day_10::solve_part_1(example_data));
+    EXPECT_EQ("13140", day_10::solve_part_1(example_data));
 }
 
 TEST(day_10, SolvePart2) {
-    EXPECT_EQ(31, day_10::solve_part_2(example_data));
+    auto expected_result = 
+        "\n"
+        "##..##..##..##..##..##..##..##..##..##..\n"
+        "###...###...###...###...###...###...###.\n"
+        "####....####....####....####....####....\n"
+        "#####.....#####.....#####.....#####.....\n"
+        "######......######......######......####\n"
+        "#######.......#######.......#######.....\n";
+    EXPECT_EQ(expected_result, day_10::solve_part_2(example_data));
 }
 

@@ -3,6 +3,7 @@
 #include <SolutionBase.h>
 #include <vector>
 #include <utility> 
+#include <string>
 
 namespace day_10_ns {
     enum Instruction {
@@ -11,7 +12,7 @@ namespace day_10_ns {
 }
 
 class day_10: public SolutionBase<
-    day_10, std::vector<std::pair<day_10_ns::Instruction, int> >
+    day_10, std::vector<std::pair<day_10_ns::Instruction, int> >, std::string
 >{
 public:
     static ParsedData parse_input(const char* filename);
