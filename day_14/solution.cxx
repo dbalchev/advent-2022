@@ -49,12 +49,15 @@ day_14::ParsedData day_14::parse_input(const char* filename) {
     }
     return result;
 }
-day_14::ResultData day_14::solve_part_1(const ParsedData& parsed_data) {
+int day_14::simulate(const ParsedData& parsed_data, bool add_floor) {
     int max_x = 0;
     int max_y = 0;
     for (auto &[x, y]: ranges::views::join(parsed_data)){
         max_x = std::max(x, max_x);
         max_y = std::max(y, max_y);
+    }
+    if (add_floor) {
+        max_x = std::max(max_x, 500 + max_y + 10);
     }
     std::vector<std::vector<char> > cross_section(
         max_x + 1, std::vector<char>(max_y + 1, '.')
@@ -79,12 +82,23 @@ day_14::ResultData day_14::solve_part_1(const ParsedData& parsed_data) {
             }
         }
     }
+    if (add_floor) {
+        for (auto &col: cross_section) {
+            col.push_back('.');
+            col.push_back('#');
+        }
+    }
     int n_sand_units = 0;
     std::vector<std::tuple<int, int, char> >bt_stack = {{500, 0, START}};
     while(!bt_stack.empty()) {
         auto [x, y, state] = bt_stack.back();
         bt_stack.pop_back();
         if (x >= cross_section.size() || x < 0 || y >= cross_section[0].size()) {
+            if (add_floor) {
+                std::cerr << cross_section.size() << " " << cross_section[0].size() << std::endl;
+                std::cerr << x << " " << y << std::endl;
+                throw std::runtime_error("floor not infinite enough ");
+            }
             break;
         }
         if (cross_section[x][y] != '.') {
@@ -102,12 +116,16 @@ day_14::ResultData day_14::solve_part_1(const ParsedData& parsed_data) {
             throw std::runtime_error("unknown state");
         }
     }
-    if (bt_stack.empty()) {
+    if (!add_floor && bt_stack.empty()) {
         throw std::runtime_error("cloggged");
     }
     return n_sand_units;
 }
+
+day_14::ResultData day_14::solve_part_1(const ParsedData& parsed_data) {
+    return simulate(parsed_data, false);
+}
 day_14::ResultData day_14::solve_part_2(const ParsedData& parsed_data) {
-    return 30;
+    return simulate(parsed_data, true);
 }
 

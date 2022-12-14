@@ -25,6 +25,6 @@ TEST(day_14, SolvePart1) {
 }
 
 TEST(day_14, SolvePart2) {
-    EXPECT_EQ(31, day_14::solve_part_2(example_data));
+    EXPECT_EQ(93, day_14::solve_part_2(example_data));
 }
 
