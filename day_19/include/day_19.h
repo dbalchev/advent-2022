@@ -3,10 +3,11 @@
 #include <SolutionBase.h>
 #include <tuple>
 #include <vector>
+#include <array>
 
 namespace day_19_ns {
     typedef int d19_t;
-    typedef std::vector<day_19_ns::d19_t> Resources;
+    typedef std::array<day_19_ns::d19_t, 4> Resources;
     typedef std::tuple<int, std::vector<Resources> > Blueprint;
 }
 
