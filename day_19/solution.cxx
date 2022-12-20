@@ -144,18 +144,32 @@ struct BlueprintSolver {
     > memo;
 
     std::vector<Resources> dominators;
+    Resources max_resources;
+    Resources max_production;
+    int max_days;
 
-    BlueprintSolver(const std::vector<Resources>& costs)
-        : costs(costs), 
-            dominators(4, Resources(9, 0))
-        {}
+    BlueprintSolver(int max_days, const std::vector<Resources>& costs)
+        : costs(costs), max_days(max_days),
+            dominators(4, Resources(9, 0)),
+            max_resources(4, 45),
+            max_production(4, 0)
+        {
+            for (int i = 0; i < 4; ++i) {
+                for (int j = 0; j < 3; ++j) {
+                    max_resources[j] = 45; //std::max(max_resources[j], 2 * costs[i][j]);
+                    max_production[j] = std::max(max_production[j], costs[i][j]);
+                }
+            }
+            max_resources[0] = 10;
+            max_resources[3] = max_production[3] = std::numeric_limits<d19_t>::max();
+        }
 
     d19_t solve(int day, int next_construction, const Resources& r, const Resources &p) {
-        if (day == 24) {
+        if (day == max_days) {
             return r.back();
         }
-        for (auto x: r) {
-            if (x >= 30) {
+        for (int i = 0; i < 4; ++i) {
+            if (r[i] > max_resources[i] || p[i] > max_production[i]) {
                 return 0;
             }
         }
@@ -215,7 +229,7 @@ struct BlueprintSolver {
 day_19::ResultData day_19::solve_part_1(const ParsedData& parsed_data) {
     d19_t result = 0;
     for (auto &[bp_index, costs]: parsed_data) {
-        BlueprintSolver solver = {costs};
+        BlueprintSolver solver = {24, costs};
         d19_t solution = 0;
         for (int first_factory = 0; first_factory < 4; ++first_factory) {
             solution = std::max(
@@ -276,6 +290,22 @@ combine_mega_actions(
             auto me = std::max_element(cost.begin(), cost.end());
             if (within_limits && (allow_positive_cost || *me == 0)) {
                 current_actions.push_back({cost, resources, factories});
+                MegaAction a_10_12 = {
+                    {4, 14, 0, 0},
+                    {1, 0, 1, 0},
+                    {0, 1, 1, 0},  
+                };
+                MegaAction a_8_12 = {
+                    {2, 14, 0, 0},
+                    {1, 0, 1, 0},
+                    {0, 1, 1, 0},
+                };
+                if (current_actions.back() == a_10_12) {
+                    std::cout << "A 10 12 generated in " << 2 * rh_minutes << std::endl;
+                }
+                if (current_actions.back() == a_8_12) {
+                    std::cout << "A 8 12 generated in " << 2 * rh_minutes << std::endl;
+                }
             }
         }
     }
@@ -291,7 +321,9 @@ combine_mega_actions(
         auto &[c, p] = cp;
         for (auto &r1: rs) {
             bool dominated = false;
-
+            bool is_a_8_12 = c == Resources{2, 14, 0, 0} 
+                && r1 == Resources{1, 0, 1, 0} 
+                && p == Resources{0, 1, 1, 0};
             for (auto &r2: rs) {
                 if (r1 == r2) {
                     continue;
@@ -304,9 +336,20 @@ combine_mega_actions(
                     }
                 }
                 if (r2_dominates) {
+                    if (is_a_8_12) {
+                        std::cout << "dominator" << std::endl;
+                        for (int i = 0; i < 4; ++i) {
+                            std::cout << r2[i] << " ";
+                        }
+                        std::cout << std::endl;
+                    }
                     dominated = true;
                     break;
                 }
+            }   
+            if (is_a_8_12) 
+                {
+                std::cout << "a_8_12 dominated = " << dominated << " in " << 2 * rh_minutes << std::endl;
             }
             if (!dominated) {
                 filtered.push_back({c, r1, p});
@@ -360,18 +403,33 @@ struct ImprovedBlueprintSolver
 
     d19_t solve_24() {
         auto ca = actions[2];
+        MegaAction a_8_12 = {
+            {2, 14, 0, 0},
+            {1, 0, 1, 0},
+            {0, 1, 1, 0},
+        };
+        for (auto &x: ca) {
+            if (x == a_8_12) {
+                std::cout << "Expected action found in ca" << std::endl;
+            }
+        }
         for (int i = 1; i < 5; ++i) {
-            ca = combine_mega_actions(ca, 4, actions[2], 4, false, max_resources, max_factories);
+            ca = combine_mega_actions(ca, 4 * i, actions[2], 4, false, max_resources, max_factories);
             std::cout << "size_" << i << " " << ca.size() << std::endl;
-            bool found = false;
             for (auto &x: ca) {
-                MegaAction ma = {{0, 0, 0, 0}, {1, 7, 1, 0}, {0, 4, 1, 0}};
-                if (x == ma) {
-                    found = true;
-                    break;
+                MegaAction m08 = {{0, 0, 0, 0}, {2, 9, 0, 0}, {0, 3, 0, 0}};
+                MegaAction m12 = {{0, 0, 0, 0}, {1, 7, 1, 0}, {0, 4, 1, 0}};
+                MegaAction m16 = {{0, 0, 0, 0}, {2, 9, 6, 0}, {0, 4, 2, 0}};
+                if (x == m08) {
+                    std::cout << "Expected for m08 found" << std::endl;
+                }
+                if (x == m12) {
+                    std::cout << "Expected for m12 found" << std::endl;
+                }
+                if (x == m16) {
+                    std::cout << "Expected for m16 found" << std::endl;
                 }
             }
-            std::cout << "found " << found << std::endl;
         }
         // auto ca = combine_mega_actions(
         //     actions[3], 8, actions[3], 8, false, max_resources, max_factories
@@ -412,6 +470,7 @@ struct ImprovedBlueprintSolver
 
 };
 day_19::ResultData day_19::solve_part_2(const ParsedData& parsed_data) {
+    return -1;
     ImprovedBlueprintSolver solver(3, std::get<1>(parsed_data[0]));
     int i = 0;
     for (auto &actions: solver.actions) {
@@ -422,13 +481,13 @@ day_19::ResultData day_19::solve_part_2(const ParsedData& parsed_data) {
             for (int i = 0; i < 4; ++i) {
                 max_resources[i] = std::max(max_resources[i], resources[i]);
             }
-            if (i < 2 || (i == 2 && *me == 0)) {
-                std::cout << "====" << std::endl;
-                for (int j = 0; j < 4; ++j) {
-                    std::cout << cost[j] << " " << resources[j] << " " << production[j] << std::endl;
-                }
-                std::cout << "====" << std::endl;
-            }
+            // if (i < 2 || (i == 2 && *me == 0)) {
+            //     std::cout << "====" << std::endl;
+            //     for (int j = 0; j < 4; ++j) {
+            //         std::cout << cost[j] << " " << resources[j] << " " << production[j] << std::endl;
+            //     }
+            //     std::cout << "====" << std::endl;
+            // }
             zero_cost_actions += *me == 0;
         }
         std::cout << (1 << i++) << " " << actions.size() << " " << zero_cost_actions << std::endl;

@@ -22,7 +22,7 @@ TEST(day_19, ParseInput) {
 }
 
 TEST(day_19, SolvePart1) {
-    // EXPECT_EQ(33, day_19::solve_part_1(example_data));
+    EXPECT_EQ(33, day_19::solve_part_1(example_data));
 }
 
 TEST(day_19, SolvePart2) {
